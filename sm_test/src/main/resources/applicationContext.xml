@@ -12,11 +12,13 @@
  	http://www.springframework.org/schema/task/spring-task-4.1.xsd
  	">
 
-
+	<context:component-scan base-package="cn.woshicheng.*"
+		annotation-config="true"/>
 
 
 	<bean id="springLoadBean" class="com.woshicheng.netty.restfull.SpringLoadBean"
 		scope="singleton" />
 
-	<bean id="restFullNettyServer" class="com.woshicheng.netty.restfull.RestFullNettyServer"  init-method="init"/>
+	<bean id="restFullNettyServer" class="com.woshicheng.netty.restfull.RestFullNettyServer"
+		init-method="init" />
 </beans>
