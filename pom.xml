@@ -14,6 +14,7 @@
 	</modules>
 
 	<properties>
+		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -122,6 +123,11 @@
 				<version>2.6</version>
 			</dependency>
 			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>2.4</version>
@@ -146,7 +152,11 @@
 				<artifactId>cglib</artifactId>
 				<version>2.1_3</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.25</version>
+			</dependency>
 			<!-- commons start -->
 
 
@@ -252,6 +262,8 @@
 			<!-- web end -->
 
 
+
+
 		</dependencies>
 
 
@@ -274,20 +286,6 @@
 			</releases>
 		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>public</id>
-			<name>aliyun nexus</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
 
 
 
