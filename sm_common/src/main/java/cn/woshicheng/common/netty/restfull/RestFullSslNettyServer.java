@@ -26,6 +26,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import cn.woshicheng.common.netty.NettyUtils;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -38,10 +40,12 @@ import javax.net.ssl.SSLEngine;
  * 
  * @author chenjf
  *
+ *	<!--restfull相关 -->
+	<bean id="springLoadBean" class="com.talianshe.common.netty.restfull.SpringLoadBean"scope="singleton" />
+	<bean id="restfullsocket" class="io.netty.bootstrap.ServerBootstrap" />
  */
 
-@Service("restFullNettyServer")
-public class RestFullNettyServer implements EmbeddedJaxrsServer {
+public class RestFullSslNettyServer implements EmbeddedJaxrsServer {
 	private final Logger logger = Logger.getLogger(this.getClass());
 	private EventLoopGroup eventLoopGroup;
 	private EventLoopGroup eventExecutor;
@@ -50,7 +54,6 @@ public class RestFullNettyServer implements EmbeddedJaxrsServer {
 	protected SecurityDomain domain;
 	NettyJaxrsServer aaa;
 
-	@Resource(name = "restfullsocket")
 	protected ServerBootstrap bootstrap;
 
 	@Autowired
@@ -61,13 +64,14 @@ public class RestFullNettyServer implements EmbeddedJaxrsServer {
 	private int maxRequestSize = 1024 * 1024 * 10;
 	private int backlog = 128;
 	// 访问的根目录
-	@Value("${restfull.socket.rootPath}")
+	
+	
 	protected String root = "";
-
-	@Value("${restfull.socket.port}")
 	protected int port;
+	protected String ioMode;
 
 	// htts 不用为空
+	
 	private SSLContext sslContext;
 
 	public void setSSLContext(SSLContext sslContext) {
@@ -85,12 +89,15 @@ public class RestFullNettyServer implements EmbeddedJaxrsServer {
 	@PostConstruct
 	@Override
 	public void start() {
-		eventLoopGroup = new NioEventLoopGroup(ioWorkerCount);
-		eventExecutor = new NioEventLoopGroup(executorThreadCount);
+		
+		eventLoopGroup = NettyUtils.createEventLoop(ioMode, Runtime.getRuntime().availableProcessors()+1, "restfull_netty");
+		eventExecutor = NettyUtils.createEventLoop(ioMode, Runtime.getRuntime().availableProcessors()+1, "restfull_netty");
+
+		//eventLoopGroup = new NioEventLoopGroup(ioWorkerCount);
+		//eventExecutor = new NioEventLoopGroup(executorThreadCount);
 		deployment = setAutotActualResourceClasses();
 		deployment.start();
-		final RequestDispatcher dispatcher = new RequestDispatcher((SynchronousDispatcher) deployment.getDispatcher(),
-				deployment.getProviderFactory(), domain);
+		final RequestDispatcher dispatcher = new RequestDispatcher((SynchronousDispatcher) deployment.getDispatcher(),deployment.getProviderFactory(), domain);
 		// Configure the server.
 		if (sslContext == null) {
 			bootstrap.group(eventLoopGroup).channel(NioServerSocketChannel.class)
@@ -100,8 +107,7 @@ public class RestFullNettyServer implements EmbeddedJaxrsServer {
 							ch.pipeline().addLast(new HttpRequestDecoder());
 							ch.pipeline().addLast(new HttpObjectAggregator(maxRequestSize));
 							ch.pipeline().addLast(new HttpResponseEncoder());
-							ch.pipeline().addLast(new RestEasyHttpRequestDecoder(dispatcher.getDispatcher(), root,
-									RestEasyHttpRequestDecoder.Protocol.HTTP));
+							ch.pipeline().addLast(new RestEasyHttpRequestDecoder(dispatcher.getDispatcher(), root,RestEasyHttpRequestDecoder.Protocol.HTTP));
 							ch.pipeline().addLast(new MyRestEasyHttpResponseEncoder(dispatcher));
 							ch.pipeline().addLast(eventExecutor, new RequestHandler(dispatcher));
 						}
@@ -166,9 +172,9 @@ public class RestFullNettyServer implements EmbeddedJaxrsServer {
 	 */
 	public ResteasyDeployment setAutotActualResourceClasses() {
 		ResteasyDeployment rdp = new ResteasyDeployment();
-		ApplicationContext ac = SpringLoadBean.getApplicationContext();
-		Collection<Object> controllers = ac.getBeansWithAnnotation(Controller.class).values();
-		rdp.getResources().addAll(controllers);
+//		ApplicationContext ac = SpringLoadBean.getApplicationContext();
+//		Collection<Object> controllers = ac.getBeansWithAnnotation(Controller.class).values();
+//		rdp.getResources().addAll(controllers);
 		return rdp;
 	}
 }

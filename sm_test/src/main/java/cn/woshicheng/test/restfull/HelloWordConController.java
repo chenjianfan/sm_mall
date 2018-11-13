@@ -7,7 +7,8 @@ import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Controller;
 
-import com.woshicheng.utils.JsonUtil;
+import cn.woshicheng.common.util.JsonUtil;
+
 
 /**
  * * jax-rs规范用法: http://www.vogella.com/tutorials/REST/article.html resteasy
@@ -30,7 +31,6 @@ public class HelloWordConController {
 	@GET
 	@Path("/hellWord")
 	public String hellWord() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
 		return JsonUtil.getInstance().obj2json(new HelloWrodClass("hellWord,您好，美丽的世界"));
 	}
 

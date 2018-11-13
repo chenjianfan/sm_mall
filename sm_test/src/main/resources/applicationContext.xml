@@ -16,9 +16,9 @@
 		annotation-config="true"/>
 
 
-	<bean id="springLoadBean" class="com.woshicheng.netty.restfull.SpringLoadBean"
+	<bean id="springLoadBean" class="cn.woshicheng.common.netty.restfull.SpringLoadBean"
 		scope="singleton" />
 
-	<bean id="restFullNettyServer" class="com.woshicheng.netty.restfull.RestFullNettyServer"
+	<bean id="restFullNettyServer" class="cn.woshicheng.common.netty.restfull.RestFullNettyServer"
 		init-method="init" />
 </beans>
