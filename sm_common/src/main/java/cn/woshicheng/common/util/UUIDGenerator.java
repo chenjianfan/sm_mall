@@ -12,7 +12,6 @@ public class UUIDGenerator {
 
     /** 
      * 获取32位GUID 
-     * 
      * @return 
      */ 
     public static String getGUID() { 
