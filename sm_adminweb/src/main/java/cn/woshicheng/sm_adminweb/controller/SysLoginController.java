@@ -41,7 +41,7 @@ public class SysLoginController {
 			response.setContentType("image/jpeg");
 			// 生成验证码
 			String capText = captchaProducer.createText();
-			session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+			session.setAttribute(Constants.KAPTCHA_SESSION_KEY,capText);
 			// 向客户端写出
 			BufferedImage bi = captchaProducer.createImage(capText);
 			out = response.getOutputStream();

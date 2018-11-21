@@ -76,6 +76,8 @@ public class JettyServer {
 		server.stop();
 	}
 
+
+
 	private ThreadPool createThreadPool() {
 		// TODO: You should configure these appropriately
 		// for your environment - this is an example only
@@ -85,10 +87,33 @@ public class JettyServer {
 		return _threadPool;
 	}
 
+	//参数设置: 
+	//	minThreads（最小线程数） 
+	//	maxThreads (最大线程数）
+	//	SelectChannelConnector 
+	//	maxIdleTime （连接最大空闲时间） 
+	//	acceptors (同时在监听read事件的线程数) 
+	//	lowResourceMaxIdleTime(表示线程资源稀少时的maxIdleTime 默认值是 -1，表示没有设置。一般设置值应该<=maxIdleTime ) 
+	//	lowResourcesConnections(只有NIO才有这个设置，表示连接空闲时的连接数，大于这个数将被shutdown 
+	//	默认值是 0,表示该设置没有生效 每个acceptor的连接数=(lowResourcesConnections+acceptors-1)/acceptors)） 
+	//	acceptQueueSize(连接被 accept 前允许等待的连接数即Socket的Backlog)
+	
+	//	connector.setMaxIdleTime(10000); 
+	//	connector.setAcceptors(32); 
+	//	connector.setStatsOn(false); 
+	//	connector.setLowResourcesConnections(65000); 
+	//	connector.setLowResourceMaxIdleTime(5000); 
+	//	connector.setAcceptQueueSize(3000); 
+	
 	private NetworkTrafficServerConnector createConnector() {
 		NetworkTrafficServerConnector _connector = new NetworkTrafficServerConnector(server);
 		_connector.setPort(port);
 		_connector.setHost(bindInterface);
+	
+//		_connector.setIdleTimeout(idleTimeout);
+		_connector.setAcceptQueueSize(3000);
+		
+		
 		return _connector;
 	}
 
