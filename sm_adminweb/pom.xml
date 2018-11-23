@@ -8,6 +8,23 @@
 	</parent>
 	<artifactId>sm_adminweb</artifactId>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -97,6 +114,10 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+
+
+
+
 	</dependencies>
 
 
@@ -200,6 +221,33 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			
+		
+
+
+			<!-- war包打包组件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<!-- 元配置文件的目录，相对于pom.xml文件的路径 -->
+							<directory>src/main/java/META-INF/webapp/WEB-INF</directory>
+							<!-- 是否过滤文件，也就是是否启动auto-config的功能 -->
+							<filtering>true</filtering>
+							<!-- 目标路径 -->
+							<targetPath>WEB-INF</targetPath>
+						</resource>
+						<!-- <resource>
+							<directory>src/main/resources/environment/${package.environment}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<filtering>true</filtering>
+						</resource> -->
+					</webResources>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
