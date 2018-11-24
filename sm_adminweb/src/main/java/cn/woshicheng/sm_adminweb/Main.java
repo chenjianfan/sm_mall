@@ -1,7 +1,7 @@
 package cn.woshicheng.sm_adminweb;
 
 public class Main {
-	public static void main(String... anArgs) throws Exception {	
+	public static void main(String... anArgs) throws Exception {
 		new Main().start();
 	}
 

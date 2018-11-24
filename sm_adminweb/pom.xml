@@ -68,6 +68,9 @@
 			<artifactId>jetty-jsp</artifactId>
 			<version>${jetty.jsp.version}</version>
 		</dependency>
+
+
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -114,13 +117,15 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-
-
-
-
 	</dependencies>
 
+	<profiles>
+		<profile>
 
+
+
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
@@ -222,9 +227,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-		
-
 
 			<!-- war包打包组件 -->
 			<plugin>
@@ -232,22 +234,12 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<webResources>
-						<resource>
-							<!-- 元配置文件的目录，相对于pom.xml文件的路径 -->
-							<directory>src/main/java/META-INF/webapp/WEB-INF</directory>
-							<!-- 是否过滤文件，也就是是否启动auto-config的功能 -->
-							<filtering>true</filtering>
-							<!-- 目标路径 -->
-							<targetPath>WEB-INF</targetPath>
-						</resource>
-						<!-- <resource>
-							<directory>src/main/resources/environment/${package.environment}</directory>
-							<targetPath>WEB-INF/classes</targetPath>
-							<filtering>true</filtering>
-						</resource> -->
-					</webResources>
+					<!--指定web.xml的路径 -->
+					<webXml>src/main/java/META-INF/webapp/WEB-INF/web.xml</webXml>
+					<!--指定jsp、js、css的路劲 -->
+					<warSourceDirectory>src/main/java/META-INF/webapp</warSourceDirectory>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
