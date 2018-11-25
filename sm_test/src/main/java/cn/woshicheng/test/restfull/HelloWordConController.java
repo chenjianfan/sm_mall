@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Controller;
 
-import cn.woshicheng.common.util.JsonUtil;
+import cn.woshicheng.common.util.json.JsonUtil;
 
 
 /**

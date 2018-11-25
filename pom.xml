@@ -29,6 +29,11 @@
 		<jetty.jsp.version>9.1.4.v20140401</jetty.jsp.version>
 		<fastjson-version>1.2.30</fastjson-version>
 		<kaptcha.version>2.3.2</kaptcha.version>
+		<mybatis-version>3.4.1</mybatis-version>
+		<mybatis-spring-version>1.3.0</mybatis-spring-version>
+		<mysql-version>5.1.39</mysql-version>
+		<druid-version>1.0.28</druid-version>
+		<mybatis.paginator.version>1.2.10</mybatis.paginator.version>
 
 	</properties>
 
@@ -36,9 +41,24 @@
 
 	<dependencyManagement>
 
-
-
 		<dependencies>
+
+			<!-- 工程内置的公共模块 -->
+
+			<dependency>
+				<groupId>cn.woshichengy</groupId>
+				<artifactId>sm_common</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.woshicheng</groupId>
+				<artifactId>sm_core</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+
+
+			<!-- 工程内置的公共模块 -->
+
 			<!--验证码生成工具 -->
 			<dependency>
 				<groupId>com.github.penggle</groupId>
@@ -275,7 +295,38 @@
 				<version>1.6.0.RELEASE</version>
 			</dependency>
 
+			<!-- mybatis start -->
+
+			<dependency>
+				<groupId>com.github.miemiedev</groupId>
+				<artifactId>mybatis-paginator</artifactId>
+				<version>${mybatis.paginator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring-version}</version>
+			</dependency>
+			<!-- mybatis end -->
+
 			<!-- spring end -->
+
 
 			<!-- json end -->
 

@@ -1,4 +1,4 @@
-package org.sm_core;
+package cn.woshicheng.core;
 
 /**
  * Hello world!

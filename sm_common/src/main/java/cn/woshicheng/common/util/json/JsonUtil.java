@@ -1,4 +1,4 @@
-package cn.woshicheng.common.util;
+package cn.woshicheng.common.util.json;
 
 import java.io.IOException;
 import java.io.StringWriter;
