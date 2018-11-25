@@ -11,6 +11,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.woshicheng.core.Constant;
+import cn.woshicheng.core.dao.SysUserDao;
+import cn.woshicheng.core.entity.SysUserEntity;
+
 import java.util.*;
 
 /**
