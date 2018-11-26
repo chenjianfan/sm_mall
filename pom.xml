@@ -43,6 +43,12 @@
 
 		<dependencies>
 
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>2.7.3</version>
+			</dependency>
+
 			<!-- 工程内置的公共模块 -->
 
 			<dependency>

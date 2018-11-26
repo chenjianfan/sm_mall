@@ -38,19 +38,18 @@
 		</property>
 	</bean>
 
-
 	<!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="sessionManager" ref="sessionManager"></property>
-		<property name="realm" ref="userRealm" />
+		<property name="realm" ref="userPermissionRealm" />
 	</bean>
 
-	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的UserRealm.java -->
-	<bean id="userRealm" class="com.platform.shiro.UserRealm" />
+	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的UserPermissionRealm.java -->
+	<bean id="userPermissionRealm" class="cn.woshicheng.core.shiro.UserPermissionRealm" />
 
 	<bean id="sessionManager"
 		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-		<!-- 设置session过期时间为1小时(单位：毫秒)，默认为30分钟 -->
+<!-- 		设置session过期时间为1小时(单位：毫秒)，默认为30分钟 -->
 		<property name="globalSessionTimeout" value="3600000"></property>
 		<property name="sessionValidationSchedulerEnabled" value="true"></property>
 		<property name="sessionIdUrlRewritingEnabled" value="false"></property>
@@ -58,6 +57,7 @@
 	</bean>
 
 	<bean id="cluterShiroSessionDao" class="cn.woshicheng.core.shiro.CluterShiroSessionDao" />
+
 
 
 

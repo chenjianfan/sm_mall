@@ -34,6 +34,4 @@ public class SpringLoadBean implements ApplicationContextAware {
 		SpringLoadBean.context = context;
 	}
 	
-	
-	
 }

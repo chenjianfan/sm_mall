@@ -8,13 +8,13 @@
     http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-		
-		  <!-- JDBC配置 -->
-		
-		<context:property-placeholder location="classpath:config.properties"
+
+	<!-- JDBC配置 -->
+
+	<context:property-placeholder location="classpath:config.properties"
 		ignore-unresolvable="true" />
-		
-		
+
+
 	<!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -46,41 +46,55 @@
 		<!-- 监控数据库 -->
 		<!-- <property name="filters" value="stat" /> -->
 		<property name="filters" value="mergeStat" />
-		   <property name="proxyFilters">
-            <list>
-                <ref bean="stat-filter"/>
-                <!--过滤永真条件 防止注入-->
-                <ref bean="wall-filter"/>
-            </list>
-        </property>
-        <property name="connectionInitSqls" value="set names utf8mb4;"/>
-        
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<!--过滤永真条件 防止注入 -->
+				<ref bean="wall-filter" />
+			</list>
+		</property>
+		<property name="connectionInitSqls" value="set names utf8mb4;" />
+
 	</bean>
-	
-	
-		<!-- 还可以配置 NamedParameterJdbcTemplate，该对象可以使用具名参数，其没有无参构造器，所以必须为其构造器指定参数 -->
-    <bean id="namedParameterJdbcTemplate"
-          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-	
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="1000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+	</bean>
+
+
+	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+		<property name="dbType" value="mysql" />
+		<property name="config" ref="wall-filter-config" />
+	</bean>
+
+	<bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig">
+		<property name="multiStatementAllow" value="true" />
+	</bean>
+
+	<!-- 还可以配置 NamedParameterJdbcTemplate，该对象可以使用具名参数，其没有无参构造器，所以必须为其构造器指定参数 -->
+	<bean id="namedParameterJdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- mybatis文件配置，扫描所有mapper文件 -->
-	  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="classpath:mybatis_config.xml"/>
-        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis_config.xml" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="mapperLocations" value="classpath:cn/woshicheng/mapper/*.xml" />
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-	
-	
-		<!-- spring与mybatis整合配置，扫描所有dao，在单数据源的情况下可以不写sqlSessionFactoryBeanName -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- spring与mybatis整合配置，扫描所有dao，在单数据源的情况下可以不写sqlSessionFactoryBeanName -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.woshicheng.*.dao" />
 	</bean>

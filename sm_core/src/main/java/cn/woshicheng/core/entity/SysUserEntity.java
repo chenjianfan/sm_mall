@@ -11,7 +11,7 @@ public class SysUserEntity extends BaseEntity {
 	/**
 	 * 用户ID
 	 */
-	private String userId;
+	private long userId;
 
 	/**
 	 * 用户名
@@ -66,7 +66,7 @@ public class SysUserEntity extends BaseEntity {
 	 *
 	 * @param userId
 	 */
-	public void setUserId(String userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -75,7 +75,7 @@ public class SysUserEntity extends BaseEntity {
 	 *
 	 * @return String
 	 */
-	public String getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
