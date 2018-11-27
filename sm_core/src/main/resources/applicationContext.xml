@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+ 	http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.2.xsd
+ 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+ 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+ 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+ 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+ 	http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task.xsd
+ http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-4.2.xsd ">
+
+	<!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+	<cache:annotation-driven cache-manager="cacheManager"
+		key-generator="myKeyGenerator" />
+	<!-- spring自带的cache管理器 -->
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<ref bean="defaultCache" /><!-- 本地永久缓存，除非项目重启 -->
+			</set>
+		</property>
+	</bean>
+
+	<!--spring 默认缓存配置,缓存项目为永久生效不会自动过期 -->
+	<bean id="defaultCache"
+		class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+		<property name="name" value="default" /><!-- 缓存名称 -->
+	</bean>
+
+
+
+	<!-- 自定义key生成器 -->
+	<bean id="myKeyGenerator" class="cn.woshicheng.core.cache.SpringCacheKey"></bean>
+
+
+	<context:component-scan base-package="cn.woshicheng" />
+
+
+	<!-- 读取配置 -->
+	<context:property-placeholder location="classpath*:*.properties"
+		ignore-unresolvable="true" />
+
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jsonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="spring-mvc.xml" />
+
+</beans>
