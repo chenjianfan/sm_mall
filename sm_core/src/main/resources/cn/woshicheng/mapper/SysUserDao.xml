@@ -3,13 +3,10 @@
 
 <mapper namespace="cn.woshicheng.core.dao.SysUserDao">
 
-	<configuration>
 
-		<typeAliases>
-			<typeAlias alias="SysUser" type=" cn.woshicheng.core.entity.SysUserEntity" />
-		</typeAliases>
 
-	</configuration>
+
+
 	<select id="queryObject" resultType="SysUser">
 		select * from sys_user where
 		user_id = #{value}
