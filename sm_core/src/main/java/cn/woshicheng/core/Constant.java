@@ -9,6 +9,10 @@ public class Constant {
 	/**
 	 * 超级管理员ID
 	 */
+	public static final String CacheFinalName = "316031139@qq.com";
+	/**
+	 * 超级管理员ID
+	 */
 	public static final int SUPER_ADMIN = 1;
 
 	/**
@@ -32,7 +36,7 @@ public class Constant {
 	 */
 	public final static String SMS_CONFIG_KEY = "SMS_CONFIG_KEY";
 	/**
-	 * 权限前缀
+	 * session前缀
 	 */
 	public static final String SESSION_KEY = "SESSIONID_";
 

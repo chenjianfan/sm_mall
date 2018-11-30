@@ -1,4 +1,4 @@
-package cn.woshicheng.sm_adminweb.error;
+package cn.woshicheng.core.error;
 
 public class AjaxJson {
 

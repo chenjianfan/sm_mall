@@ -26,8 +26,8 @@ import java.util.*;
 public class UserPermissionRealm extends AuthorizingRealm {
 	@Autowired
 	private SysUserDao sysUserDao;
-//	@Autowired
-//	private SysMenuDao sysMenuDao;
+	// @Autowired
+	// private SysMenuDao sysMenuDao;
 
 	/**
 	 * 授权(验证权限时调用)
@@ -37,21 +37,22 @@ public class UserPermissionRealm extends AuthorizingRealm {
 		SysUserEntity user = (SysUserEntity) principals.getPrimaryPrincipal();
 		long userId = user.getUserId();
 
-//		List<String> permsList = (List<String>) J2CacheUtils.get(Constant.PERMS_LIST + userId);
-//
-//		// 用户权限列表
-//		Set<String> permsSet = new HashSet<String>();
-//		if (permsList != null && permsList.size() != 0) {
-//			for (String perms : permsList) {
-//				if (StringUtils.isBlank(perms)) {
-//					continue;
-//				}
-//				permsSet.addAll(Arrays.asList(perms.trim().split(",")));
-//			}
-//		}
+		// List<String> permsList = (List<String>)
+		// J2CacheUtils.get(Constant.PERMS_LIST + userId);
+		//
+		// // 用户权限列表
+		// Set<String> permsSet = new HashSet<String>();
+		// if (permsList != null && permsList.size() != 0) {
+		// for (String perms : permsList) {
+		// if (StringUtils.isBlank(perms)) {
+		// continue;
+		// }
+		// permsSet.addAll(Arrays.asList(perms.trim().split(",")));
+		// }
+		// }
 
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//		info.setStringPermissions(permsSet);
+		// info.setStringPermissions(permsSet);
 		return info;
 	}
 
@@ -89,16 +90,17 @@ public class UserPermissionRealm extends AuthorizingRealm {
 		List<String> permsList;
 
 		// 系统管理员，拥有最高权限
-//		if (Constant.SUPER_ADMIN == user.getUserId()) {
-//			List<SysMenuEntity> menuList = sysMenuDao.queryList(new HashMap<String, Object>());
-//			permsList = new ArrayList<>(menuList.size());
-//			for (SysMenuEntity menu : menuList) {
-//				permsList.add(menu.getPerms());
-//			}
-//		} else {
-//			permsList = sysUserDao.queryAllPerms(user.getUserId());
-//		}
-		//J2CacheUtils.put(Constant.PERMS_LIST + user.getUserId(), permsList);
+		// if (Constant.SUPER_ADMIN == user.getUserId()) {
+		// List<SysMenuEntity> menuList = sysMenuDao.queryList(new
+		// HashMap<String, Object>());
+		// permsList = new ArrayList<>(menuList.size());
+		// for (SysMenuEntity menu : menuList) {
+		// permsList.add(menu.getPerms());
+		// }
+		// } else {
+		// permsList = sysUserDao.queryAllPerms(user.getUserId());
+		// }
+		// J2CacheUtils.put(Constant.PERMS_LIST + user.getUserId(), permsList);
 
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
 		return info;

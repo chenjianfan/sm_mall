@@ -1,4 +1,4 @@
-package cn.woshicheng.sm_adminweb.error;
+package cn.woshicheng.core.error.springmvc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+
+import cn.woshicheng.core.error.AjaxJson;
 
 /**
  * spring mvc 全局处理异常捕获 根据请求区分ajax和普通请求，分别进行响应. 第一、异常信息输出到日志中。
@@ -38,7 +39,8 @@ public class HandlerExceptionResolver implements org.springframework.web.servlet
 	/**
 	 * 对异常信息进行统一处理，区分异步和同步请求，分别处理
 	 */
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Exception ex) {
 		boolean isajax = isAjax(request, response);
 		Throwable deepestException = deepestException(ex);
 		return processException(request, response, handler, deepestException, isajax);
@@ -80,7 +82,8 @@ public class HandlerExceptionResolver implements org.springframework.web.servlet
 	 * @param isajax
 	 * @return
 	 */
-	private ModelAndView processException(HttpServletRequest request, HttpServletResponse response, Object handler, Throwable ex, boolean isajax) {
+	private ModelAndView processException(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Throwable ex, boolean isajax) {
 		// 步骤一、异常信息记录到日志文件中.
 		log.error("全局处理异常捕获:", ex);
 		// 步骤二、异常信息记录截取前50字符写入数据库中.
@@ -118,7 +121,8 @@ public class HandlerExceptionResolver implements org.springframework.web.servlet
 	 * @param deepestException
 	 * @return
 	 */
-	private ModelAndView processAjax(HttpServletRequest request, HttpServletResponse response, Object handler, Throwable deepestException) {
+	private ModelAndView processAjax(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Throwable deepestException) {
 		ModelAndView empty = new ModelAndView();
 		// response.setContentType("application/json");
 		response.setHeader("Cache-Control", "no-store");
@@ -148,7 +152,8 @@ public class HandlerExceptionResolver implements org.springframework.web.servlet
 	 * @param deepestException
 	 * @return
 	 */
-	private ModelAndView processNotAjax(HttpServletRequest request, HttpServletResponse response, Object handler, Throwable ex) {
+	private ModelAndView processNotAjax(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Throwable ex) {
 		String exceptionMessage = getThrowableMessage(ex);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("exceptionMessage", exceptionMessage);

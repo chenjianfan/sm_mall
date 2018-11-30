@@ -109,5 +109,7 @@
 
 	<!-- 异常处理类 -->
 	<bean id="exceptionHandler"
-		class="cn.woshicheng.sm_adminweb.error.HandlerExceptionResolver" />
+		class="cn.woshicheng.core.error.springmvc.HandlerExceptionResolver" />
+
+	<import resource="smadmin-shiro.xml" />
 </beans>
