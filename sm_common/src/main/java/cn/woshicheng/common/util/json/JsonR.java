@@ -19,70 +19,27 @@ public class JsonR extends HashMap<Object, Object> {
 	private final static int fail = -1;
 
 	public JsonR() {
-		put(msgCode, success);
 	}
 
 	public static JsonR error500() {
-		return error(500, "未知异常，请联系开发者");
+		JsonR jsonR = new JsonR();
+		jsonR.put(msgCode, fail);
+		jsonR.put(msg, "未知错误，请找管理员");
+		return jsonR;
 	}
 
-	public static JsonR error(String msg) {
-		return error(fail, msg);
-	}
-
-	public static JsonR error(String msg, Object dataObject) {
-		return error(fail, msg, dataObject);
-	}
-
-	public static JsonR error(int msgCode, String msg) {
-		JsonR r = new JsonR();
-		r.put(msgCode, msgCode);
-		r.put(msg, msg);
-		return r;
-	}
-
-	public static JsonR error(int msgCode, String msg, Object dataObject) {
-		JsonR r = new JsonR();
-		r.put(msgCode, msgCode);
-		r.put(msg, msg);
-		r.put(data, dataObject);
-		return r;
-	}
-
-	/*************************
-	 * * wo 是分割线
-	 ************************************************/
-	public static JsonR ok(String msg) {
-		JsonR r = new JsonR();
-		r.put(msg, msg);
-		return r;
-	}
-
-	public static JsonR ok(String msg, Object dataObject) {
-		JsonR r = new JsonR();
-		r.put(msg, msg);
-		r.put(data, dataObject);
-		return r;
-	}
-
-	public static JsonR ok(Map<String, Object> map) {
-		JsonR r = new JsonR();
-		r.putAll(map);
-		return r;
+	public static JsonR error(String msgError) {
+		JsonR jsonR = new JsonR();
+		jsonR.put(msgCode, fail);
+		jsonR.put(msg, msgError);
+		return jsonR;
 	}
 
 	public static JsonR ok() {
-		return new JsonR();
-	}
-
-	public JsonR put(String key, Object value) {
-		super.put(key, value);
-		return this;
-	}
-
-	public JsonR put(Object value) {
-		super.put(data, value);
-		return this;
+		JsonR jsonR = new JsonR();
+		jsonR.put(msgCode, success);
+		jsonR.put(msg, "成功");
+		return jsonR;
 	}
 
 }

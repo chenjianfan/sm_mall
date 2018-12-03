@@ -1,5 +1,6 @@
 package cn.woshicheng.common.dao;
 
+
 /**
  * 基本的dao crud
  * 
@@ -14,5 +15,7 @@ public interface BaseDao<T> {
 	int update(T t);
 
 	int delete(Object id);
+
+	T findById(int id);
 
 }

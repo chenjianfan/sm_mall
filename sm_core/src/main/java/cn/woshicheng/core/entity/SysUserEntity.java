@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.woshicheng.common.util.BaseEntity;
 
+
 public class SysUserEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

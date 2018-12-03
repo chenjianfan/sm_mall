@@ -5,8 +5,6 @@
 
 
 
-
-
 	<select id="queryObject" resultType="SysUser">
 		select * from sys_user where
 		user_id = #{value}
@@ -75,6 +73,11 @@
 	<select id="queryByUserName" resultType="SysUser">
 		select * from sys_user
 		where username = #{username}
+	</select>
+
+	<select id="queryByPwd" resultType="SysUser">
+		select * from sys_user
+		where password = #{password} and username=#{userName}
 	</select>
 
 	<insert id="save" parameterType="SysUser" useGeneratedKeys="true"

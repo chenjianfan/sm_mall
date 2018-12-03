@@ -31,6 +31,8 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
 	 * 根据用户名，查询系统用户
 	 */
 	SysUserEntity queryByUserName(String username);
+	
+	SysUserEntity queryByPwd(String password,String userName);
 
 	/**
 	 * 修改密码

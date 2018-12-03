@@ -57,7 +57,8 @@
 					</div>
 					<div style="display: inline-block; width: 100px;">
 						<img style="height: 32px; width: 96px; border-radius: 4px;"
-							alt="不清楚，请单击图片刷新！" title="点击刷新" class="pointer" :src="src"	@click="refreshCode">
+							alt="不清楚，请单击图片刷新！" title="点击刷新" class="pointer" :src="src"
+							@click="refreshCode">
 					</div>
 				</div>
 				<div>
@@ -84,7 +85,7 @@
 		var vm = new Vue({
 			el : '#loginBox',
 			data : {
-				username : 'admin',
+				username : 'sm_admin',
 				password : 'admin',
 				captcha : '',
 				src : 'captchaimg.jpg'
@@ -111,14 +112,16 @@
 						iview.Message.warning("验证码为空");
 						return false;
 					}
-					var data = "username=" + vm.username + "&password="+ vm.password + "&captcha=" + vm.captcha;
+					var data = "username=" + vm.username + "&password="
+							+ vm.password + "&captcha=" + vm.captcha;
 					$.ajax({
 						type : "POST",
 						url : "sys/login",
 						data : data,
 						dataType : "json",
 						success : function(result) {
-							if (result.code == 0) {//登录成功
+							console.info(result)
+							if (result.msgCode == 0) {//登录成功
 								parent.location.href = 'index.html';
 							} else {
 								vm.refreshCode();

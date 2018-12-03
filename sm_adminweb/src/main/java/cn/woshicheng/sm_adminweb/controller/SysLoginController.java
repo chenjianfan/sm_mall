@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.code.kaptcha.Producer;
 
 import cn.woshicheng.common.util.json.JsonR;
+import cn.woshicheng.core.aop.CheckResubmitAnnotation;
+import cn.woshicheng.core.aop.ShowLogAnnotation;
 import cn.woshicheng.core.cache.J2CacheAnnotation;
 import cn.woshicheng.core.cache.J2CacheUtil;
 import cn.woshicheng.core.shiro.ShiroUtils;
@@ -45,7 +46,6 @@ public class SysLoginController {
 
 	// 获取验证码
 
-	@J2CacheAnnotation
 	@RequestMapping("captchaimg.jpg")
 	public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) {
 		ServletOutputStream out = null;
@@ -78,6 +78,7 @@ public class SysLoginController {
 		}
 	}
 
+	@ShowLogAnnotation("用户登录操作")
 	@ResponseBody
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
 	public JsonR login(String username, String password, String captcha) throws IOException {

@@ -13,8 +13,8 @@
 
 	<typeAliases>
 		<!--针对单个别名定义 -->
-		<typeAlias type="cn.woshicheng.core.entity.SysUserEntity"
-			alias="SysUser" />
+		<typeAlias type="cn.woshicheng.core.entity.SysUserEntity" alias="SysUser" />
+		<typeAlias type="cn.woshicheng.core.entity.SyslogEntitiy" alias="SysLog" />
 		<!--进行批量别名定义：自动扫描包中po类，自定义别名，别名就是类名(首字母大写或小写都可以) -->
 		<!-- <package name="cn.woshicheng.*.entity" /> -->
 	</typeAliases>

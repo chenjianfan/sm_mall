@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.woshicheng.core.dao.SysLogDao">
+
+
+	<!--表名 -->
+	<sql id="tableName">
+		syslog
+	</sql>
+
+	<!-- 字段 -->
+	<sql id="Field">
+		loginfo,
+		name,
+		params,
+		methodName,
+		ip,
+		createdate
+	</sql>
+
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{loginfo},
+		#{name},
+		#{params},
+		#{methodName},
+		#{ip},
+		#{createdate}
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="save" parameterType="SysLog">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		) values (
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+
+
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="int" resultType="SysLog">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where
+		id = #{id}
+	</select>
+
+
+
+
+</mapper>
