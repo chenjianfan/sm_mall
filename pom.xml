@@ -34,6 +34,7 @@
 		<mysql-version>5.1.39</mysql-version>
 		<druid-version>1.0.28</druid-version>
 		<mybatis.paginator.version>1.2.10</mybatis.paginator.version>
+		<org-json-version>20180130</org-json-version>
 
 	</properties>
 
@@ -409,7 +410,11 @@
 				<version>2.7.6-release</version>
 			</dependency>
 
-
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${org-json-version}</version>
+			</dependency>
 
 			<!-- J2Cache -->
 

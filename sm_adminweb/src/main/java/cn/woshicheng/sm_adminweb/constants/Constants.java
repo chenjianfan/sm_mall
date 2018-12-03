@@ -1,5 +1,10 @@
 package cn.woshicheng.sm_adminweb.constants;
 
+/***
+ * adminweb 常量
+ * @author chenjf
+ *
+ */
 public interface Constants {
 
 	

@@ -1,4 +1,4 @@
-package cn.woshicheng.core.cache.aop;
+package cn.woshicheng.core.log.aop;
 
 import java.lang.reflect.Method;
 
@@ -9,16 +9,22 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import cn.woshicheng.core.cache.J2CacheAnnotation;
+import cn.woshicheng.core.log.ApiLogAnnotation;
 
+/***
+ * api请求参数以及回应的日志信息
+ * 
+ * @author chenjf
+ *
+ */
 @Aspect
 @Component
-public class J2Cache {
+public class ApiLogAop {
 	/**
 	 * 切点
 	 */
-	@Pointcut("@annotation(cn.woshicheng.core.cache.J2CacheAnnotation)")
-	public void J2CacheData() {
+	@Pointcut("@annotation(cn.woshicheng.core.log.ApiLogAnnotation)")
+	public void ShowLogAopData() {
 
 	}
 
@@ -28,22 +34,17 @@ public class J2Cache {
 	 * @param joinPoint
 	 *            连接点
 	 */
-	@Before("J2CacheData()")
+	@Before("ShowLogAopData()")
 	public void saveSysLog(JoinPoint joinPoint) {
 
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 
-		J2CacheAnnotation cacheAnnotation = method.getAnnotation(J2CacheAnnotation.class);
+		ApiLogAnnotation cacheAnnotation = method.getAnnotation(ApiLogAnnotation.class);
 		if (cacheAnnotation != null) {
 			// 注解上的描述
-			System.out.println("J2CacheData前置通知");
-		}else{
-			System.out.println("J2CacheData前置通知----没有J2CacheAnnotation");
-		} 
-		
-		
+			System.out.println("ShowLogAnnotation前置通知");
 
+		}
 	}
-
 }

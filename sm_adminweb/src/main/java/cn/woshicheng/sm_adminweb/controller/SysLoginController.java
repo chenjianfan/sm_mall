@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -26,6 +27,7 @@ import com.google.code.kaptcha.Producer;
 
 import cn.woshicheng.common.util.json.JsonR;
 import cn.woshicheng.core.cache.J2CacheAnnotation;
+import cn.woshicheng.core.cache.J2CacheUtil;
 import cn.woshicheng.core.shiro.ShiroUtils;
 import cn.woshicheng.sm_adminweb.constants.Constants;
 
@@ -48,7 +50,6 @@ public class SysLoginController {
 	public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) {
 		ServletOutputStream out = null;
 		try {
-			HttpSession session = request.getSession();
 			response.setDateHeader("Expires", 0);
 			response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
@@ -56,7 +57,9 @@ public class SysLoginController {
 			response.setContentType("image/jpeg");
 			// 生成验证码
 			String capText = captchaProducer.createText();
-			session.setAttribute(Constants.KAPTCHA_Login_SESSION_KEY, capText);
+
+			ShiroUtils.setSessionAttribute(Constants.KAPTCHA_Login_SESSION_KEY, capText);
+
 			// 向客户端写出
 			BufferedImage bi = captchaProducer.createImage(capText);
 			out = response.getOutputStream();
@@ -78,9 +81,10 @@ public class SysLoginController {
 	@ResponseBody
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
 	public JsonR login(String username, String password, String captcha) throws IOException {
-		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_Login_SESSION_KEY);
-		if (null == kaptcha) {
-			return JsonR.error("验证码已失效");
+		String kaptcha = (String) ShiroUtils.getSessionAttribute(Constants.KAPTCHA_Login_SESSION_KEY);
+		ShiroUtils.removeAttribute(Constants.KAPTCHA_Login_SESSION_KEY);
+		if (StringUtils.isEmpty(kaptcha)) {
+			return JsonR.error("验证码已失效,请重新获取");
 		}
 		if (!captcha.equalsIgnoreCase(kaptcha)) {
 			return JsonR.error("验证码不正确");

@@ -4,7 +4,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 
 import cn.woshicheng.core.Constant;
-import cn.woshicheng.core.cache.J2CacheUtils;
+import cn.woshicheng.core.cache.J2CacheUtil;
 
 import java.io.Serializable;
 
@@ -19,7 +19,9 @@ public class CluterShiroSessionDao extends EnterpriseCacheSessionDAO {
 		Serializable sessionId = super.doCreate(session);
 
 		final String key = Constant.SESSION_KEY + sessionId.toString();
+		
 		setShiroSession(key, session);
+		
 		return sessionId;
 	}
 
@@ -44,14 +46,14 @@ public class CluterShiroSessionDao extends EnterpriseCacheSessionDAO {
 	protected void doDelete(Session session) {
 		super.doDelete(session);
 		final String key = Constant.SESSION_KEY + session.getId().toString();
-		J2CacheUtils.remove(key);
+		J2CacheUtil.remove(key);
 	}
 
 	private Session getShiroSession(String key) {
-		return (Session) J2CacheUtils.get(key);
+		return (Session) J2CacheUtil.get(key);
 	}
 
 	private void setShiroSession(String key, Session session) {
-		J2CacheUtils.put(key, session);
+		J2CacheUtil.put(key, session);
 	}
 }

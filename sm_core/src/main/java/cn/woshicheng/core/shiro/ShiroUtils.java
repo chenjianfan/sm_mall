@@ -6,7 +6,6 @@ import org.apache.shiro.subject.Subject;
 
 import cn.woshicheng.core.entity.SysUserEntity;
 
-
 /***
  * Shiro工具类
  * 
@@ -39,29 +38,16 @@ public class ShiroUtils {
 		return getSession().getAttribute(key);
 	}
 
+	public static Object removeAttribute(Object key) {
+		return getSession().removeAttribute(key);
+	}
+
 	public static boolean isLogin() {
 		return SecurityUtils.getSubject().getPrincipal() != null;
 	}
 
 	public static void logout() {
 		SecurityUtils.getSubject().logout();
-	}
-
-	/**
-	 * 跟进key获取值的
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public static String getKaptcha(String key) {
-		String kaptcha;
-		try {
-			kaptcha = getSessionAttribute(key).toString();
-			getSession().removeAttribute(key);
-		} catch (Exception e) {
-			return null;
-		}
-		return kaptcha;
 	}
 
 }

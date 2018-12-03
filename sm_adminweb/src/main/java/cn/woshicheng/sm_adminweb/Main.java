@@ -8,7 +8,7 @@ public class Main {
 	private JettyServer server;
 
 	public Main() {
-		server = new  JettyServer(8080);
+		server = new JettyServer(8080);
 	}
 
 	public void start() throws Exception {
