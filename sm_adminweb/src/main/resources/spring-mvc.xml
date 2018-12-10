@@ -17,55 +17,48 @@ http://www.springframework.org/schema/mvc
 	<!-- 静态资源springmvc处理 -->
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven>
-		<mvc:message-converters register-defaults="true">
-			<bean
-				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/html;charset=UTF-8</value>
-						<value>application/json;charset=UTF-8</value>
-					</list>
-				</property>
-				<property name="features">
-					<list>
-						<value>WriteMapNullValue</value>
-						<value>QuoteFieldNames</value>
-						<value>WriteDateUseDateFormat</value>
-						<!-- 禁用fastjson循环引用检测 -->
-						<value>DisableCircularReferenceDetect</value>
-					</list>
-				</property>
-			</bean>
-		</mvc:message-converters>
+
 	</mvc:annotation-driven>
-	<!-- 配置freeMarker视图解析器（可解析HTML） -->
-	<bean id="viewResolverFtl"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
-		<property name="contentType" value="text/html; charset=UTF-8" />
-		<property name="exposeRequestAttributes" value="true" />
-		<property name="exposeSessionAttributes" value="true" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="cache" value="true" />
+
+
+	<!-- Velocity视图解析器 默认视图 -->
+
+
+
+
+
+	<!-- velocity视图解析器 -->
+	<bean id="velocityViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="suffix" value=".html" />
-		<property name="order" value="0" />
+		<property name="order" value="1" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
 	</bean>
 
-	<!-- 配置freeMarker的模板路径 -->
+	<!-- velocity环境配置 -->
+	<bean id="velocityConfig"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<!-- velocity配置文件路径 -->
+		<property name="configLocation" value="/WEB-INF/velocity.properties" />
+		<!-- velocity模板路径 -->
+		<property name="resourceLoaderPath" value="/WEB-INF/views/" />
+	</bean>
+
+
+
+
+	<!-- html视图解析器 先配置freemarkerConfig,html是没有prefix前缀属性的 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/WEB-INF/views/" />
-		<property name="defaultEncoding" value="UTF-8" />
-		<property name="freemarkerSettings">
-			<props>
-				<prop key="template_update_delay">3600</prop>
-				<prop key="locale">zh_CN</prop>
-				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-				<prop key="date_format">yyyy-MM-dd</prop>
-				<prop key="number_format">#.##</prop>
-			</props>
+		<property name="templateLoaderPath">
+			<value>/WEB-INF/views/</value>
 		</property>
+	</bean>
+	<bean id="htmlviewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="suffix" value=".html" />
+		<property name="order" value="2"></property>
+		<property name="contentType" value="text/html;charset=UTF-8"></property>
 	</bean>
 
 
@@ -76,7 +69,7 @@ http://www.springframework.org/schema/mvc
 
 
 
-
+	<mvc:resources mapping="/**/*.html" location="/" />
 
 	<mvc:resources location="WEB-INF/statics/img/" mapping="/img/**" />
 	<mvc:resources location="WEB-INF/statics/js/" mapping="/js/**" />
@@ -86,15 +79,7 @@ http://www.springframework.org/schema/mvc
 
 
 
-	<!-- 避免IE在ajax请求时，返回json出现下载 -->
-	<bean id="jacksonMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
+
 
 
 	<!-- 整合kaptcha验证码 https://www.cnblogs.com/louis80/p/5230507.html -->
@@ -118,22 +103,6 @@ http://www.springframework.org/schema/mvc
 	</bean>
 
 
-	<!-- 使用fastJson来支持JSON数据格式 -->
-	<bean id="fastJsonHttpMessageConverter"
-		class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-				<value>application/json</value>
-			</list>
-		</property>
-		<property name="features">
-			<list>
-				<value>WriteMapNullValue</value>
-				<value>QuoteFieldNames</value>
-			</list>
-		</property>
-	</bean>
 
 
 	<!-- 异常处理类 -->

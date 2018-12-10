@@ -6,12 +6,7 @@ import org.apache.shiro.subject.Subject;
 
 import cn.woshicheng.core.entity.SysUserEntity;
 
-/***
- * Shiro工具类
- * 
- * @author chenjf
- *
- */
+
 public class ShiroUtils {
 
 	public static Session getSession() {

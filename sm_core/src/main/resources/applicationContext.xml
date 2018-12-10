@@ -16,22 +16,10 @@
         http://www.springframework.org/schema/cache/spring-cache-4.2.xsd">
 
 	<!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
-	<cache:annotation-driven cache-manager="cacheManager"
-		key-generator="myKeyGenerator" />
-	<!-- spring自带的cache管理器 -->
-	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-		<property name="caches">
-			<set>
-				<ref bean="defaultCache" /><!-- 本地永久缓存，除非项目重启 -->
-			</set>
-		</property>
-	</bean>
 
-	<!--spring 默认缓存配置,缓存项目为永久生效不会自动过期 -->
-	<bean id="defaultCache"
-		class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
-		<property name="name" value="default" /><!-- 缓存名称 -->
-	</bean>
+
+
+
 
 
 
@@ -47,28 +35,12 @@
 		ignore-unresolvable="true" />
 
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="jsonHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
 
-	<bean id="jsonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>application/json;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
 
 
 	<context:annotation-config />
 	<!-- 启用aop  -->
-	<aop:aspectj-autoproxy  proxy-target-class="true"></aop:aspectj-autoproxy>
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 	<import resource="spring-mvc.xml" />
 

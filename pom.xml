@@ -35,7 +35,11 @@
 		<druid-version>1.0.28</druid-version>
 		<mybatis.paginator.version>1.2.10</mybatis.paginator.version>
 		<org-json-version>20180130</org-json-version>
-
+		<velocity-version>1.7</velocity-version>
+		<velocity-tools-version>2.0</velocity-tools-version>
+		<jstl-version>1.2</jstl-version>
+		<taglibs-version>1.1.2</taglibs-version>
+		<freemarker-version>2.3.23</freemarker-version>
 	</properties>
 
 
@@ -44,10 +48,97 @@
 
 		<dependencies>
 
+
+			<!-- tomcat内嵌 -->
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-core</artifactId>
+				<version>8.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-el</artifactId>
+				<version>8.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-jasper</artifactId>
+				<version>8.5.5</version>
+			</dependency>
+			<!-- tomcat内嵌 -->
+
+
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>1.10</version>
+			</dependency>
+
+			<!-- Velocity视图所需jar -->
+			<dependency>
+				<artifactId>velocity</artifactId>
+				<groupId>org.apache.velocity</groupId>
+				<version>${velocity-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-tools</artifactId>
+				<version>${velocity-tools-version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>dom4j</artifactId>
+						<groupId>dom4j</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>oro</artifactId>
+						<groupId>oro</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>sslext</artifactId>
+						<groupId>sslext</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-core</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-taglib</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>struts-tiles</artifactId>
+						<groupId>org.apache.struts</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>commons-beanutils</artifactId>
+						<groupId>commons-beanutils</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>commons-chain</artifactId>
+						<groupId>commons-chain</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>commons-collections</artifactId>
+						<groupId>commons-collections</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- JSP视图所需jar -->
+			<dependency>
+				<groupId>jstl</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>taglibs</groupId>
+				<artifactId>standard</artifactId>
+				<version>${taglibs-version}</version>
+			</dependency>
+			<!-- Freemarker视图所需jar -->
 			<dependency>
 				<groupId>org.freemarker</groupId>
 				<artifactId>freemarker</artifactId>
-				<version>2.3.28</version>
+				<version>${freemarker-version}</version>
 			</dependency>
 
 			<!-- 工程内置的公共模块 -->

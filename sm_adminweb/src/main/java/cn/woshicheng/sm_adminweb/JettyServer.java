@@ -84,6 +84,7 @@ public class JettyServer {
 		QueuedThreadPool _threadPool = new QueuedThreadPool();
 		_threadPool.setMinThreads(10);
 		_threadPool.setMaxThreads(100);
+		
 		return _threadPool;
 	}
 
@@ -111,9 +112,10 @@ public class JettyServer {
 		_connector.setHost(bindInterface);
 	
 //		_connector.setIdleTimeout(idleTimeout);
+		
+		
 		_connector.setAcceptQueueSize(3000);
-		
-		
+	
 		return _connector;
 	}
 

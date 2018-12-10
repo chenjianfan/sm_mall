@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.woshicheng.core.aop.aop.CheckResubmitApiAop;
 
@@ -14,17 +16,21 @@ public class SysHtmlontroller {
 	private final Logger logger = LoggerFactory.getLogger(CheckResubmitApiAop.class);
 
 	@RequestMapping("{module}/{url}.html")
-	public String page(@PathVariable("module") String module, @PathVariable("url") String url) {
+	public ModelAndView page(@PathVariable("module") String module, @PathVariable("url") String url) {
 
-		StringBuffer sb = new StringBuffer();
+		// StringBuffer sb = new StringBuffer();
+		//
+		// sb.append(module);
+		// sb.append("/");
+		// sb.append(url);
+		// sb.append(".html");
+		//
+		// logger.info("访问模块的html=" + sb.toString());
 
-		sb.append(module);
-		sb.append("/");
-		sb.append(url);
-		sb.append(".html");
+		ModelAndView mv = new ModelAndView(module + "/" + url);
 
-		logger.info("访问模块的html=" + sb.toString());
-		return sb.toString();
+		return mv;
+
 	}
 
 }
