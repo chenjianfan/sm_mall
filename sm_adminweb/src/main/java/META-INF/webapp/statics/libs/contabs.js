@@ -1,4 +1,4 @@
-$(function () {
+vue.min.js$(function () {
     //计算元素集合的总宽度
     function calSumWidth(elements) {
         var width = 0;

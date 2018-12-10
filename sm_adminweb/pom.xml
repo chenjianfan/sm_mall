@@ -8,12 +8,18 @@
 	</parent>
 	<artifactId>sm_adminweb</artifactId>
 	<dependencies>
-
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>cn.woshichengy</groupId>
 			<artifactId>sm_common</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>cn.woshicheng</groupId>
 			<artifactId>sm_core</artifactId>

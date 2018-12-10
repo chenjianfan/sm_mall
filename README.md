@@ -23,6 +23,14 @@ war可直接放到支持j2ee容器，比如tomcat
    @CheckResubmitAnnotation  防止重复提交
 	  long expireTime() default 2L              重复提交超时时间 单位：秒
 	  String token() default “token字符串”       用户token,用来做唯一标识
+	  
+
+
+三 一个在开发节省时间的工具Jrebel,本地修改东西，不要重启启动
+如下连接，你懂得
+https://blog.csdn.net/xingbaozhen1210/article/details/81093041	  
+	  
 	
+https://blog.csdn.net/a4475686/article/details/79378000  mybatit修改热部署
 
 	

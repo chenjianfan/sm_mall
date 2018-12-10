@@ -9,22 +9,13 @@
  	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
  	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
  	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
- 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+http://www.springframework.org/schema/mvc 
+     	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
  	http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<mvc:default-servlet-handler />
 
 	<!-- 静态资源springmvc处理 -->
-
-	<!-- JSP视图解析器 -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-
+	<mvc:default-servlet-handler />
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean
@@ -47,6 +38,45 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	<!-- 配置freeMarker视图解析器（可解析HTML） -->
+	<bean id="viewResolverFtl"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="cache" value="true" />
+		<property name="suffix" value=".html" />
+		<property name="order" value="0" />
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">3600</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+
+
+
+
+
+
+
 
 	<mvc:resources location="WEB-INF/statics/img/" mapping="/img/**" />
 	<mvc:resources location="WEB-INF/statics/js/" mapping="/js/**" />
@@ -77,10 +107,9 @@
 						<prop key="kaptcha.border">yes</prop>
 						<prop key="kaptcha.border.color">105,179,90</prop>
 						<prop key="kaptcha.textproducer.font.color">blue</prop>
-						<!-- <prop key="kaptcha.image.width">125</prop> <prop key="kaptcha.image.height">45</prop> -->
 						<prop key="kaptcha.textproducer.font.size">45</prop>
 						<prop key="kaptcha.session.key">code</prop>
-						<prop key="kaptcha.textproducer.char.length">5</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
 						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
 					</props>
 				</constructor-arg>

@@ -24,6 +24,7 @@
 				/statics/** = anon
 				/common/** = anon
 				/error/** = anon
+				**/html/** = anon
 				<!-- 登录资源放行 -->
 				/login.html=anon
 				/sys/login=anon
