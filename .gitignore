@@ -18,3 +18,12 @@
 /sm_test/*.gitignore
 /sm_test/*.project
 /sm_test/.settings/*.prefs
+/sm_adminweb/.settings/*.jsdtscope
+/sm_adminweb/.settings/*.component
+/sm_adminweb/.settings/*.xml
+/sm_adminweb/.settings/*.container
+/sm_adminweb/.settings/*.name
+/sm_core/src/main/resources/*.xml
+/sm_test/src/main/resources/*.xml
+/target/maven-archiver/*.properties
+/target/*.war

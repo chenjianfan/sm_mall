@@ -2,6 +2,8 @@ package cn.woshicheng.core.shiro;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cn.woshicheng.core.Constant;
 import cn.woshicheng.core.cache.J2CacheUtil;
@@ -12,16 +14,18 @@ import java.io.Serializable;
  * 分布式session管理
  *
  */
-public class CluterShiroSessionDao extends EnterpriseCacheSessionDAO {
+public class ShiroSessionDao extends EnterpriseCacheSessionDAO {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	protected Serializable doCreate(Session session) {
 		Serializable sessionId = super.doCreate(session);
 
 		final String key = Constant.SESSION_KEY + sessionId.toString();
-		
+
 		setShiroSession(key, session);
-		
+
 		return sessionId;
 	}
 

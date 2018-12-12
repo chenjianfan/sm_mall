@@ -24,9 +24,6 @@ http://www.springframework.org/schema/mvc
 	<!-- Velocity视图解析器 默认视图 -->
 
 
-
-
-
 	<!-- velocity视图解析器 -->
 	<bean id="velocityViewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">

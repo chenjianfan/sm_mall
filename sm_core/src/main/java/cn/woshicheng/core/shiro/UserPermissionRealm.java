@@ -17,12 +17,6 @@ import cn.woshicheng.core.entity.SysUserEntity;
 
 import java.util.*;
 
-/**
- * 认证
- *
- * @author lipengjun
- * @date 2017年11月19日 上午9:49:19
- */
 public class UserPermissionRealm extends AuthorizingRealm {
 	@Autowired
 	private SysUserDao sysUserDao;
@@ -90,17 +84,16 @@ public class UserPermissionRealm extends AuthorizingRealm {
 		List<String> permsList;
 
 		// 系统管理员，拥有最高权限
-		// if (Constant.SUPER_ADMIN == user.getUserId()) {
-		// List<SysMenuEntity> menuList = sysMenuDao.queryList(new
-		// HashMap<String, Object>());
-		// permsList = new ArrayList<>(menuList.size());
-		// for (SysMenuEntity menu : menuList) {
-		// permsList.add(menu.getPerms());
-		// }
-		// } else {
-		// permsList = sysUserDao.queryAllPerms(user.getUserId());
-		// }
-		// J2CacheUtils.put(Constant.PERMS_LIST + user.getUserId(), permsList);
+//		if (Constant.SUPER_ADMIN == user.getUserId()) {
+//			List<SysMenuEntity> menuList = sysMenuDao.queryList(new HashMap<String, Object>());
+//			permsList = new ArrayList<>(menuList.size());
+//			for (SysMenuEntity menu : menuList) {
+//				permsList.add(menu.getPerms());
+//			}
+//		} else {
+//			permsList = sysUserDao.queryAllPerms(user.getUserId());
+//		}
+		//J2CacheUtils.put(Constant.PERMS_LIST + user.getUserId(), permsList);
 
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
 		return info;

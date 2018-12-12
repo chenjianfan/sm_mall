@@ -5,7 +5,14 @@ import net.oschina.j2cache.J2Cache;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class J2CacheUtil {
+	
+	
+	private static Logger logger = LoggerFactory.getLogger("J2CacheUtil");
+
 	/**
 	 * 业务缓存
 	 */
@@ -66,6 +73,7 @@ public class J2CacheUtil {
 	 * @param value
 	 */
 	public static void put(String cacheName, String key, Object value) {
+		
 		cache.set(cacheName, key, value);
 	}
 

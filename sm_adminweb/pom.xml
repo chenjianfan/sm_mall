@@ -10,7 +10,10 @@
 	<dependencies>
 
 
-
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
 
 		<!-- Velocity视图所需jar -->
 		<dependency>

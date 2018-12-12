@@ -53,11 +53,11 @@
 		<property name="globalSessionTimeout" value="3600000"></property>
 		<property name="sessionValidationSchedulerEnabled" value="true"></property>
 		<property name="sessionIdUrlRewritingEnabled" value="false"></property>
-		<property name="sessionDAO" ref="cluterShiroSessionDao" />
+		<property name="sessionDAO" ref="ShiroSessionDao" />
 	</bean>
 	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的UserPermissionRealm.java -->
 	<bean id="userPermissionRealm" class="cn.woshicheng.core.shiro.UserPermissionRealm" />
-	<bean id="cluterShiroSessionDao" class="cn.woshicheng.core.shiro.CluterShiroSessionDao" />
+	<bean id="ShiroSessionDao" class="cn.woshicheng.core.shiro.ShiroSessionDao" />
 
 
 
